@@ -48,5 +48,23 @@ the server should run on http://127.0.0.1:8081
     /task/complete
     /task/delete
 
-##Example Request
+##Example Json
 
+```json
+[
+  {
+    "id": 1,
+    "taskName": "Task 1",
+    "description": "Task One",
+    "status": "Pending",
+    "creator": "Bob"
+  },
+  {
+    "id": 2,
+    "taskName": "Task 2",
+    "description": "Task Two",
+    "status": "Completed",
+    "creator": "Alice"
+  }
+]
+```
