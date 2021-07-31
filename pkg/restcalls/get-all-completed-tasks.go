@@ -8,6 +8,15 @@ import (
 
 func GetAllCompletedTasks(writer http.ResponseWriter, request *http.Request) {
 
+	if request.Method == "GET" {
+		getAllCompletedTasks(writer)
+	} else {
+		writer.WriteHeader(http.StatusBadRequest)
+	}
+
+}
+
+func getAllCompletedTasks(writer http.ResponseWriter) {
 	writer.Header().Set("Content-Type", "application/json")
 
 	var pendingTasks []model.Todo
@@ -21,9 +30,7 @@ func GetAllCompletedTasks(writer http.ResponseWriter, request *http.Request) {
 	err := json.NewEncoder(writer).Encode(pendingTasks)
 	if err != nil {
 		http.Error(writer, err.Error(), http.StatusInternalServerError)
-		return
 	}
 
 	writer.WriteHeader(http.StatusOK)
-
 }

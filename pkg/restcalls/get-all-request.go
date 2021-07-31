@@ -8,6 +8,14 @@ import (
 
 func GetAllTasks(writer http.ResponseWriter, request *http.Request) {
 
+	if request.Method == "GET" {
+		getAll(writer)
+	} else {
+		writer.WriteHeader(http.StatusBadRequest)
+	}
+}
+
+func getAll(writer http.ResponseWriter) {
 	writer.Header().Set("Content-Type", "application/json")
 
 	err := json.NewEncoder(writer).Encode(model.AllTasks)
@@ -17,5 +25,4 @@ func GetAllTasks(writer http.ResponseWriter, request *http.Request) {
 	}
 
 	writer.WriteHeader(http.StatusOK)
-
 }

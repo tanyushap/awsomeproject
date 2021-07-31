@@ -41,3 +41,16 @@ func Test_GetAllPendingTasks_HappyPath(t *testing.T) {
 	assert.Equal(t, model.AllTasks[0], tasks[0])
 
 }
+func Test_GetAllPendingWrongRequestType(t *testing.T) {
+
+	req := httptest.NewRequest("POST", "http://127.0.0.1:8081/task/get-all-todo", nil)
+	writer := httptest.NewRecorder()
+
+	restcalls.GetAllPendingTasks(writer, req)
+
+	response := writer.Result()
+
+	assert.NotNil(t, response)
+	assert.Equal(t, "400 Bad Request", response.Status)
+
+}

@@ -8,6 +8,15 @@ import (
 
 func GetAllPendingTasks(writer http.ResponseWriter, request *http.Request) {
 
+	if request.Method == "GET" {
+		getAllPendingTasks(writer)
+	} else {
+		writer.WriteHeader(http.StatusBadRequest)
+	}
+
+}
+
+func getAllPendingTasks(writer http.ResponseWriter) {
 	writer.Header().Set("Content-Type", "application/json")
 
 	var pendingTasks []model.Todo
@@ -25,5 +34,4 @@ func GetAllPendingTasks(writer http.ResponseWriter, request *http.Request) {
 	}
 
 	writer.WriteHeader(http.StatusOK)
-
 }

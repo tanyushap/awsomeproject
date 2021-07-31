@@ -10,6 +10,14 @@ import (
 
 func GetATaskById(writer http.ResponseWriter, request *http.Request) {
 
+	if request.Method == "GET" {
+		getTaskById(writer, request)
+	} else {
+		writer.WriteHeader(http.StatusBadRequest)
+	}
+}
+
+func getTaskById(writer http.ResponseWriter, request *http.Request) {
 	var taskFound model.Todo
 	var idWanted int64
 	var err error
@@ -28,6 +36,16 @@ func GetATaskById(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 
+	isFound := findTask(writer, idWanted, taskFound, err)
+
+	if !isFound {
+		log.Print("Task not found")
+		writer.WriteHeader(http.StatusNotFound)
+
+	}
+}
+
+func findTask(writer http.ResponseWriter, idWanted int64, taskFound model.Todo, err error) bool {
 	isFound := false
 	for _, task := range model.AllTasks {
 		if task.Id == idWanted {
@@ -39,16 +57,10 @@ func GetATaskById(writer http.ResponseWriter, request *http.Request) {
 			writer.WriteHeader(http.StatusOK)
 			if err != nil {
 				http.Error(writer, err.Error(), http.StatusBadRequest)
-				return
+				return isFound
 			}
 		}
 
 	}
-
-	if !isFound {
-		log.Print("Task not found")
-		writer.WriteHeader(http.StatusNotFound)
-
-	}
-
+	return isFound
 }
