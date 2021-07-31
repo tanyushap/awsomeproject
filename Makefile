@@ -1,8 +1,6 @@
-BUILD_DIR := bin
-
 .PHONY: run
 run:
-	go run cmd/main.go
+	go run main/main.go
 
 .PHONY: test
 test:

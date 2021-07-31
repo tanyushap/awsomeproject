@@ -29,24 +29,28 @@ make run
 alternatively use the command line
 
 ```bash
-go run cmd/main.go
+go run main/main.go
 ```
 the server should run on http://127.0.0.1:8081
 
 ##What Endpoints Are Available
 
 ###GET
+```
     /task - takes a parameter called id e.g. /tasks?id=1
     /task/get-all
     /task/get-all-todo
     /task/get-all-completed
-
+```
 ###POST
+```
     /task/add
-
+```
 ###TBD
+```
     /task/complete
     /task/delete
+```
 
 ##Example Json
 
